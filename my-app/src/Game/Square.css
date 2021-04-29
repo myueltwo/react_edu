@@ -16,3 +16,6 @@
 .square:focus {
     outline: none;
 }
+.square-selected {
+    background: aliceblue;
+}

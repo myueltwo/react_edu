@@ -7,6 +7,7 @@ export default class Board extends React.Component {
         return (
             <Square
                 value={this.props.squares[i]}
+                selected={this.props.selected === i}
                 onClick={() => this.props.onClick(i)}
             />
         );

@@ -7,7 +7,8 @@ export default class Game extends React.Component {
         super(props);
         this.state = {
             history: [{
-                squares: Array(9).fill(null)
+                squares: Array(9).fill(null),
+                selected: null
             }],
             xIsNext: true,
             stepNumber: 0
@@ -30,6 +31,7 @@ export default class Game extends React.Component {
         this.setState({
             history: history.concat([{
                 squares: squares,
+                selected: i
             }]),
             xIsNext: !this.state.xIsNext,
             stepNumber: history.length
@@ -41,9 +43,15 @@ export default class Game extends React.Component {
         const winner = calculateWinner(current.squares);
 
         const moves = history.map((step, move) => {
-            const desc = move ?
-                'Перейти к ходу #' + move :
-                'К началу игры';
+            let desc
+            if (move) {
+                const selected = step.selected;
+                const position = selected !== null ? [Math.floor(selected/3), selected % 3] : null;
+                const goTo = ['Перейти к ходу #', move];
+                desc = position ? goTo.concat('position: ', position).join(' ') : goTo.join(' ');
+            } else {
+                desc = 'К началу игры';
+            }
             return (
                 <li key={move}>
                     <button onClick={() => this.jumpTo(move)}>{desc}</button>
@@ -56,6 +64,7 @@ export default class Game extends React.Component {
             <div className="game">
                 <div className="game-board">
                     <Board squares={current.squares}
+                           selected={current.selected}
                            onClick={(i) => this.handleClick(i)}
                     />
                 </div>
