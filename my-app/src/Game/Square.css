@@ -19,3 +19,6 @@
 .square-selected {
     background: aliceblue;
 }
+.square-winner {
+    background: palegreen;
+}

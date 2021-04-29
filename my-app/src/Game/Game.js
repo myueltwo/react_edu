@@ -58,14 +58,21 @@ export default class Game extends React.Component {
                 </li>
             );
         });
-        const status = winner ? 'Выиграл ' + winner
-            : 'Следующий ход: ' + (this.state.xIsNext ? 'X' : 'O');
+        let status;
+        if (winner && winner.name) {
+            status = 'Выиграл ' + winner.name;
+        } else if (current.squares.indexOf(null) === -1) {
+            status = 'Игра окончилась вничью.'
+        } else {
+            status = 'Следующий ход: ' + (this.state.xIsNext ? 'X' : 'O');
+        }
         return (
             <div className="game">
                 <div className="game-board">
                     <Board squares={current.squares}
                            selected={current.selected}
                            onClick={(i) => this.handleClick(i)}
+                           winnerLine={winner?.line}
                     />
                 </div>
                 <div className="game-info">
@@ -90,7 +97,10 @@ function calculateWinner(squares) {
     for (let i = 0; i < lines.length; i++) {
         const [a, b, c] = lines[i];
         if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-            return squares[a];
+            return {
+                name: squares[a],
+                line: lines[i]
+            };
         }
     }
     return null;
