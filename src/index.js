@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
-import Game from './Game/Game';
 import reportWebVitals from './reportWebVitals';
+import Switcher from "./Switcher/Switcher";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Game />
+    <Switcher />
   </React.StrictMode>,
   document.getElementById('root')
 );
