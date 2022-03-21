@@ -24,27 +24,27 @@ export default class Switcher extends React.Component {
             runApp: 'Chats'
         });
     }
+    updateStatus = (app) => {
+        return <div className="react_edu-switcher-main__app">
+            <a href="#" className="react_edu-switcher-main__app__back" onClick={this.handleClickBack}>Назад</a>
+            <div className="react_edu-switcher-main__app__content">
+                {app}
+            </div>
+        </div>
+    }
+
     render() {
         const runApp = this.state.runApp;
-        const backBtn = <a href="#" onClick={this.handleClickBack}>Назад</a>;
         let status;
         switch (runApp) {
             case 'Game':
-                status =
-                    <div>
-                        {backBtn}
-                        <Game/>
-                    </div>
+                status = this.updateStatus(<Game/>);
                 break;
             case 'Chats':
-                status =
-                    <div>
-                        {backBtn}
-                        <Chats/>
-                    </div>
+                status = this.updateStatus(<Chats/>);
                 break;
             default:
-                status = <ul class="react_edu-switcher-main">
+                status = <ul className="react_edu-switcher-main__list">
                     <li>
                         <a href="#" onClick={this.handleClickGame}>Игра
                             "Крестики-нолики"
@@ -56,7 +56,7 @@ export default class Switcher extends React.Component {
                 </ul>;
         }
         return (
-            <div>{status}</div>
+            <div className="react_edu-switcher-main">{status}</div>
         );
     }
 }

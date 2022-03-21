@@ -1,4 +1,18 @@
 .react_edu-switcher-main {
   width: 100%;
+  height: 100%;
+}
+.react_edu-switcher-main__list {
   display: block;
+}
+.react_edu-switcher-main__app {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.react_edu-switcher-main__app__back {
+  flex-grow: 0;
+}
+.react_edu-switcher-main__app__content {
+  flex-grow: 1;
 }

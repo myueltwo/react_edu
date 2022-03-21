@@ -1,0 +1,14 @@
+.react_edu-chats-main {
+  display: flex;
+  &, &__list, &__correspondence {
+    height: 100%;
+  }
+}
+.react_edu-chats-main__list {
+  background-color: red;
+  flex-basis: 40%;
+}
+.react_edu-chats-main__correspondence {
+  background-color: blue;
+  width: 100%;
+}
