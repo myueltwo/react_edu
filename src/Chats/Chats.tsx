@@ -1,6 +1,7 @@
 import React from "react";
 import './Chats.scss';
 import {chats, IChats} from './Data';
+import chatRow from "./Row";
 
 interface IChatsState {
     chatsList: IChats[];
@@ -17,15 +18,20 @@ export default class Chats extends React.Component {
         }
     }
 
+    handlerClickToChat() {
+        // console.log(this);
+    }
+
     render() {
         const chatsList = [];
         for (let i = 0; i < this.state.chatsList.length ; i++) {
+            let chat = this.state.chatsList[i];
             chatsList.push(
-                <div className="board-row"
-                     key={'board-row' + i}
-                >
-                    {this.state.chatsList[i].name}
-                </div>
+                chatRow({
+                    chat,
+                    selected: this.state.selectedChatId === chat.id,
+                    onClick: this.handlerClickToChat.bind(this)
+                })
             );
         }
         return (
