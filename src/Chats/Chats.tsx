@@ -1,8 +1,9 @@
-import React from "react";
+import React, {SyntheticEvent} from "react";
 import './Chats.scss';
-import {chats, correspondence as correspondenceData, IChats, ICorrespondence} from './Data';
+import {chats, correspondence as correspondenceData, IChats, ICorrespondence, myUserId} from './Data';
 import chatRow from "./Row";
 import Correspondence from "./Correspondence/Correspondence";
+import {v4} from 'uuid';
 
 interface IChatsState {
     chatsList: IChats[];
@@ -45,6 +46,38 @@ export default class Chats extends React.Component {
     handlerClickToChat() {
         // console.log(this);
     }
+    handlerOnSend(event: SyntheticEvent, chatId: string, text: string) {
+        const newCorrespondence = [...this.state.correspondence];
+        let isExistCorrespondence = false;
+        const addMsg = function () {
+            return {
+                sender_id: myUserId,
+                dateTime: new Date(),
+                text,
+                id: v4()
+            };
+        }
+        for (let i = 0; i < newCorrespondence.length ; i++) {
+            let curCorrespondence = newCorrespondence[i];
+            if (chatId === curCorrespondence.chat_id) {
+                isExistCorrespondence = true;
+                curCorrespondence.messages.push(addMsg());
+                break;
+            }
+        }
+        if (!isExistCorrespondence) {
+            newCorrespondence.push({
+                id: v4(),
+                chat_id: chatId,
+                messages: [
+                    addMsg()
+                ]
+            });
+        }
+        this.setState({
+            correspondence: newCorrespondence
+        });
+    }
 
     render() {
         const chatsList = [];
@@ -68,6 +101,7 @@ export default class Chats extends React.Component {
                     <div className="react_edu-chats-main__correspondence">
                         <Correspondence chat={selectedChat}
                                         correspondence={selectedCorrespondence}
+                                        onSendHandler={this.handlerOnSend.bind(this)}
                         />
                     </div>
                 </div>

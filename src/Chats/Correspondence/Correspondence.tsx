@@ -7,6 +7,7 @@ import './Correspondence.scss';
 interface ICorrespondenceProps {
     chat: IChats;
     correspondence?: ICorrespondence;
+    onSendHandler?: Function;
 }
 export default class Correspondence extends React.Component<ICorrespondenceProps> {
     render() {
@@ -23,7 +24,9 @@ export default class Correspondence extends React.Component<ICorrespondenceProps
                 />
                 </div>
                 {messagesContent}
-                <SendMsg id={this.props.chat.id}/>
+                <SendMsg id={this.props.chat.id}
+                         onSendHandler={this.props.onSendHandler}
+                />
             </div>
         );
     }
