@@ -1,11 +1,13 @@
 import React from "react";
 import './Chats.scss';
-import {chats, IChats} from './Data';
+import {chats, correspondence as correspondenceData, IChats, ICorrespondence} from './Data';
 import chatRow from "./Row";
+import Correspondence from "./Correspondence/Correspondence";
 
 interface IChatsState {
     chatsList: IChats[];
     selectedChatId: string;
+    correspondence: ICorrespondence[];
 }
 
 export default class Chats extends React.Component {
@@ -14,8 +16,30 @@ export default class Chats extends React.Component {
         super(props);
         this.state = {
             chatsList: [...chats],
-            selectedChatId: chats[0].id
+            selectedChatId: chats[0].id,
+            correspondence: [...correspondenceData]
         }
+    }
+
+    getParamsToCorrespondence(): { selectedChat?: IChats,  selectedCorrespondence?: ICorrespondence} {
+        let selectedChat;
+        let selectedCorrespondence;
+        for (let i = 0; i < this.state.chatsList.length ; i++) {
+            let chat = this.state.chatsList[i];
+            if (this.state.selectedChatId === chat.id) {
+                selectedChat = chat;
+            }
+        }
+        for (let i = 0; i < this.state.correspondence.length ; i++) {
+            let curCorrespondence = this.state.correspondence[i];
+            if (this.state.selectedChatId === curCorrespondence.chat_id) {
+                selectedCorrespondence = curCorrespondence;
+            }
+        }
+        return {
+            selectedChat,
+            selectedCorrespondence
+        };
     }
 
     handlerClickToChat() {
@@ -24,6 +48,7 @@ export default class Chats extends React.Component {
 
     render() {
         const chatsList = [];
+        const {selectedChat, selectedCorrespondence} = this.getParamsToCorrespondence();
         for (let i = 0; i < this.state.chatsList.length ; i++) {
             let chat = this.state.chatsList[i];
             chatsList.push(
@@ -34,13 +59,23 @@ export default class Chats extends React.Component {
                 })
             );
         }
-        return (
-            <div className="react_edu-chats-main">
-                <div className="react_edu-chats-main__list">
-                    {chatsList}
+        if (selectedChat) {
+            return (
+                <div className="react_edu-chats-main">
+                    <div className="react_edu-chats-main__list">
+                        {chatsList}
+                    </div>
+                    <div className="react_edu-chats-main__correspondence">
+                        <Correspondence chat={selectedChat}
+                                        correspondence={selectedCorrespondence}
+                        />
+                    </div>
                 </div>
-                <div className="react_edu-chats-main__correspondence"></div>
-            </div>
-        );
+            );
+        } else {
+            return (
+                <div>Пустой экран</div>
+            );
+        }
     }
 }
