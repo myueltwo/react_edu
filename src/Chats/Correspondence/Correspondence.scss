@@ -1,0 +1,9 @@
+.react_edu-chats-correspondence {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.react_edu-chats-correspondence__messages {
+  flex-grow: 1;
+  flex-shrink: 1;
+}

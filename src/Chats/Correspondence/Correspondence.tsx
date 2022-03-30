@@ -2,26 +2,28 @@ import React from "react";
 import {IChats, ICorrespondence} from "../Data";
 import Header from "./Header";
 import Messages from "./Messages";
+import SendMsg from "./SendMsg";
+import './Correspondence.scss';
 interface ICorrespondenceProps {
     chat: IChats;
     correspondence?: ICorrespondence;
 }
 export default class Correspondence extends React.Component<ICorrespondenceProps> {
     render() {
-        let messagesContent;
-        if (this.props.correspondence) {
-            const messages = this.props.correspondence.messages;
-            if (messages.length) {
-                messagesContent = <Messages items={messages}/>
-            }
+        let messagesContent =
+            <div className="react_edu-chats-correspondence__messages">
+                <Messages items={this.props.correspondence?.messages}/>
+            </div>;
 
-        }
         return (
-            <div>
+            <div className="react_edu-chats-correspondence">
+                <div className="react_edu-chats-correspondence__header">
                 <Header
-                    name={this.props.chat.name}
+                    chatName={this.props.chat.name}
                 />
+                </div>
                 {messagesContent}
+                <SendMsg id={this.props.chat.id}/>
             </div>
         );
     }

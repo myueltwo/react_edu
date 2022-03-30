@@ -1,11 +1,16 @@
+import React from "react";
+import './Header.scss';
+
 interface IHeaderProps {
-    name: string;
+    chatName: string;
 }
 
-export default function (props: IHeaderProps) {
-    return (
-        <div className="chat-correspondence">
-            <div className="chat-correspondence__name">{props.name}</div>
-        </div>
-    );
+export default class Header extends React.Component<IHeaderProps> {
+    render() {
+        return (
+            <div className="chat-correspondence">
+                <div className="chat-correspondence__name">{this.props.chatName}</div>
+            </div>
+        );
+    }
 }
