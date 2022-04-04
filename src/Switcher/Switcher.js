@@ -1,6 +1,7 @@
 import React from "react";
 import Game from "../Game/Game";
 import Chats from "../Chats/Chats";
+import { FaBeer } from 'react-icons/fa';
 import './Switcher.scss';
 export default class Switcher extends React.Component {
     constructor(props) {
@@ -56,7 +57,10 @@ export default class Switcher extends React.Component {
                 </ul>;
         }
         return (
-            <div className="react_edu-switcher-main">{status}</div>
+            <div className="react_edu-switcher-main">
+                <FaBeer/>
+                {status}
+            </div>
         );
     }
 }
