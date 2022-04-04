@@ -1,0 +1,11 @@
+.react_edu-chats-messages {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 100%;
+  visibility: hidden;
+}
+.react_edu-chats-messages__content,
+.react_edu-chats-messages:hover,
+.react_edu-chats-messages:focus {
+  visibility: visible;
+}

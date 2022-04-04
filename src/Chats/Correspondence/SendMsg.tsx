@@ -17,7 +17,7 @@ export default class SendMsg extends React.Component<ISendMsg> {
             value: ''
         };
     }
-    handlerOnSend(event: SyntheticEvent) {
+    handlerOnSend(event?: SyntheticEvent) {
         if (typeof this.props.onSendHandler === 'function') {
             this.props.onSendHandler(event, this.props.id, this.state.value);
         }
@@ -28,9 +28,14 @@ export default class SendMsg extends React.Component<ISendMsg> {
     handleChange(event: BaseSyntheticEvent) {
         this.setState({value: event.target.value});
     }
+    handleKeyUp(event: React.KeyboardEvent) {
+        if (event.ctrlKey && event.code.toLowerCase() === 'enter') {
+            this.handlerOnSend();
+        }
+    }
     render() {
         return (
-            <div className="react_edu-chats-send-msg">
+            <div className="react_edu-chats-send-msg" onKeyUp={this.handleKeyUp.bind(this)}>
                 <textarea className="react_edu-chats-send-msg__text-area"
                           value={this.state.value}
                           onChange={this.handleChange.bind(this)}

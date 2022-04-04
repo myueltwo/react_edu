@@ -1,6 +1,7 @@
 import React from "react";
 import {IMessage, myUserId} from "../Data";
 import Item from "./Item";
+import './Messages.scss';
 
 interface IMessagesProps {
     items?: IMessage[];
@@ -22,7 +23,9 @@ export default class Messages extends React.Component<IMessagesProps> {
         const messagesContent = messagesList.length ? messagesList : <div>Write first</div>;
         return (
             <div className="react_edu-chats-messages">
-                {messagesContent}
+                <div className="react_edu-chats-messages__content">
+                    {messagesContent}
+                </div>
             </div>
         );
     }

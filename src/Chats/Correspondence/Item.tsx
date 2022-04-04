@@ -1,4 +1,5 @@
 import {IMessage} from "../Data";
+import './Item.scss';
 
 interface IItemMsgProps {
     msg: IMessage;

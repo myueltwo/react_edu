@@ -3,6 +3,17 @@
   &, &__list, &__correspondence {
     height: 100%;
   }
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    border-radius: 9px;
+  }
+  ::-webkit-scrollbar-thumb {
+    border-radius: 9px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  }
 }
 .react_edu-chats-main__list {
   flex-basis: 40%;
