@@ -1,0 +1,33 @@
+@mixin size-button-icon($size) {
+  &-size-#{$size} {
+    height: var(--button-icon-size-#{$size});
+    width: var(--button-icon-size-#{$size});
+    line-height: var(--button-icon-size-#{$size});
+    font-size: var(--button-icon-font-size-#{$size});
+  }
+}
+@mixin color-button-icon($color) {
+  &-color-#{$color} {
+    background-color: var(--button-icon-background-color-#{$color});
+    color: white;
+  }
+}
+.chat-components-button-icon {
+  --button-icon-size-s: 32px;
+  --button-icon-size-m: 64px;
+  --button-icon-size-l: 96px;
+  --button-icon-font-size-s: 18px;
+  --button-icon-font-size-m: 24px;
+  --button-icon-font-size-l: 32px;
+  --button-icon-background-color-action: #ff595a;
+  --button-icon-background-color-secondary: var(--primary-color);
+  border-radius: 50%;
+  text-align: center;
+  cursor: pointer;
+
+  @include size-button-icon("s");
+  @include size-button-icon("m");
+  @include size-button-icon("l");
+  @include color-button-icon("action");
+  @include color-button-icon("secondary");
+}

@@ -4,6 +4,8 @@ import {chats, correspondence as correspondenceData, IChats, ICorrespondence, my
 import chatRow from "./Row";
 import Correspondence from "./Correspondence/Correspondence";
 import {v4} from 'uuid';
+import ButtonIcon from "./Components/ButtonIcon";
+import { FaBeer } from 'react-icons/fa';
 
 interface IChatsState {
     chatsList: IChats[];
@@ -97,6 +99,9 @@ export default class Chats extends React.Component {
                 <div className="react_edu-chats-main">
                     <div className="react_edu-chats-main__list">
                         {chatsList}
+                        <div className="react_edu-chats-main__list__add-btn">
+                            <ButtonIcon icon={<FaBeer/>}/>
+                        </div>
                     </div>
                     <div className="react_edu-chats-main__correspondence">
                         <Correspondence chat={selectedChat}
