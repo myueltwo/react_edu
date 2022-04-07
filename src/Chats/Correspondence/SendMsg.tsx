@@ -1,5 +1,7 @@
 import React, {BaseSyntheticEvent, SyntheticEvent} from "react";
 import './SendMsg.scss';
+import {FiSend} from "react-icons/fi";
+import ButtonIcon from "../Components/ButtonIcon";
 
 interface ISendMsg {
     id: string;
@@ -40,7 +42,10 @@ export default class SendMsg extends React.Component<ISendMsg> {
                           value={this.state.value}
                           onChange={this.handleChange.bind(this)}
                 />
-                <input type="submit" value="Отправить" onClick={this.handlerOnSend.bind(this)}/>
+                <ButtonIcon icon={<FiSend/>}
+                            handleOnClick={this.handlerOnSend.bind(this)}
+                            color="action"
+                />
             </div>
         );
     }

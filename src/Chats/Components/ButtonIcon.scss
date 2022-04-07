@@ -2,7 +2,7 @@
   &-size-#{$size} {
     height: var(--button-icon-size-#{$size});
     width: var(--button-icon-size-#{$size});
-    line-height: var(--button-icon-size-#{$size});
+    line-height: var(--button-icon-line-height-#{$size});
     font-size: var(--button-icon-font-size-#{$size});
   }
 }
@@ -13,9 +13,12 @@
   }
 }
 .chat-components-button-icon {
-  --button-icon-size-s: 32px;
-  --button-icon-size-m: 64px;
-  --button-icon-size-l: 96px;
+  --button-icon-size-s: 40px;
+  --button-icon-size-m: 54px;
+  --button-icon-size-l: 70px;
+  --button-icon-line-height-s: 46px;
+  --button-icon-line-height-m: 58px;
+  --button-icon-line-height-l: 76px;
   --button-icon-font-size-s: 18px;
   --button-icon-font-size-m: 24px;
   --button-icon-font-size-l: 32px;
@@ -24,6 +27,9 @@
   border-radius: 50%;
   text-align: center;
   cursor: pointer;
+  &:hover {
+    box-shadow: 0 0 20px 0 rgb(0 0 0 / 50%);
+  }
 
   @include size-button-icon("s");
   @include size-button-icon("m");
