@@ -1,0 +1,28 @@
+.chat-components-menu-button-icon__picker {
+  visibility: hidden;
+  position: absolute;
+  bottom: calc(100% + 10px);
+  right: 0;
+  box-shadow: 0 2px 8px 1px rgb(0 0 0 / 24%);
+  z-index: 3;
+  padding: 0.5rem 0;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: var(--surface-color);
+  .chat-components-menu-button-icon-selected & {
+    visibility: visible;
+  }
+}
+.chat-components-menu-button-icon__picker__item {
+  white-space: nowrap;
+  padding: 0.5rem;
+  display: flex;
+  &:hover {
+    background-color: var(--background-color-hover);
+  }
+}
+.chat-components-menu-button-icon__picker__item__icon {
+  padding: 0 0.5rem;
+  font-size: 18px;
+  color: var(--secondary-text-color);
+}

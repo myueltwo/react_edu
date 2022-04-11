@@ -5,7 +5,7 @@
   padding: 0.5625rem;
   &-selected  {
     background-color: #61dafb;
-    color: white;
+    color: var(--surface-color);
   }
 }
 .chat-row__name {

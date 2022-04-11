@@ -4,8 +4,9 @@ import {chats, correspondence as correspondenceData, IChats, ICorrespondence, my
 import chatRow from "./Row";
 import Correspondence from "./Correspondence/Correspondence";
 import {v4} from 'uuid';
-import ButtonIcon from "./Components/ButtonIcon";
 import { BiMessageAdd } from 'react-icons/bi';
+import {AiOutlineUsergroupAdd, AiOutlineUserAdd} from 'react-icons/ai';
+import MenuButtonIcon from "./Components/MenuButtonIcon";
 
 interface IChatsState {
     chatsList: IChats[];
@@ -100,7 +101,17 @@ export default class Chats extends React.Component {
                     <div className="react_edu-chats-main__list">
                         {chatsList}
                         <div className="react_edu-chats-main__list__add-btn">
-                            <ButtonIcon icon={<BiMessageAdd/>}/>
+                            <MenuButtonIcon icon={<BiMessageAdd/>}
+                                            items={[{
+                                                key: 'createGroup',
+                                                name: 'New Group',
+                                                icon: <AiOutlineUsergroupAdd/>
+                                            }, {
+                                                key: 'createPrivateChat',
+                                                name: 'New Private Chat',
+                                                icon: <AiOutlineUserAdd/>
+                                            }]}
+                            />
                         </div>
                     </div>
                     <div className="react_edu-chats-main__correspondence">
