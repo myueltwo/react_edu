@@ -1,0 +1,27 @@
+.react_edu-chats-edit {
+  background-color: var(--surface-color);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 4;
+  right: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  padding: var(--paddinig-rem);
+}
+.react_edu-chats-edit__top {
+  display: flex;
+}
+.react_edu-chats-edit__top__search {
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+.react_edu-chats-edit__middle {
+  flex-shrink: 1;
+  flex-grow: 1;
+}
+.react_edu-chats-edit__bottom {
+  display: flex;
+  align-self: flex-end;
+}

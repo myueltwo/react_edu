@@ -7,11 +7,18 @@ import {v4} from 'uuid';
 import { BiMessageAdd } from 'react-icons/bi';
 import {AiOutlineUsergroupAdd, AiOutlineUserAdd} from 'react-icons/ai';
 import MenuButtonIcon from "./Components/MenuButtonIcon";
+import Edit from "./Edit";
 
 interface IChatsState {
     chatsList: IChats[];
     selectedChatId: string;
     correspondence: ICorrespondence[];
+    isEdit: boolean;
+    edit?: {
+        isNew: boolean;
+        isGroup: boolean;
+        chat?: IChats;
+    }
 }
 
 export default class Chats extends React.Component {
@@ -21,7 +28,8 @@ export default class Chats extends React.Component {
         this.state = {
             chatsList: [...chats],
             selectedChatId: chats[0].id,
-            correspondence: [...correspondenceData]
+            correspondence: [...correspondenceData],
+            isEdit: false
         }
     }
 
@@ -82,6 +90,21 @@ export default class Chats extends React.Component {
         });
     }
 
+    handleOnMenuItemClick(event: SyntheticEvent, key: string) {
+        this.setState({
+            isEdit: true,
+            edit: {
+                isNew: true,
+                isGroup: key === 'createGroup'
+            }
+        });
+    }
+    handleSaveChat() {
+        this.setState({
+            isEdit: false
+        });
+    }
+
     render() {
         const chatsList = [];
         const {selectedChat, selectedCorrespondence} = this.getParamsToCorrespondence();
@@ -99,7 +122,17 @@ export default class Chats extends React.Component {
             return (
                 <div className="react_edu-chats-main">
                     <div className="react_edu-chats-main__list">
-                        {chatsList}
+                        <div className="react_edu-chats-main__list__scroll">
+                            {chatsList}
+                        </div>
+                        {this.state.isEdit
+                            ?
+                            <div className="react_edu-chats-main__list__edit">
+                                <Edit onClickSave={this.handleSaveChat.bind(this)}
+                                />
+                            </div>
+                            : ''
+                        }
                         <div className="react_edu-chats-main__list__add-btn">
                             <MenuButtonIcon icon={<BiMessageAdd/>}
                                             items={[{
@@ -111,6 +144,7 @@ export default class Chats extends React.Component {
                                                 name: 'New Private Chat',
                                                 icon: <AiOutlineUserAdd/>
                                             }]}
+                                            handleOnMenuItemClick={this.handleOnMenuItemClick.bind(this)}
                             />
                         </div>
                     </div>

@@ -5,6 +5,7 @@
   --secondary-text-color: #707579;
   --surface-color: white;
   --background-color-hover: #f4f4f5;
+  --paddinig-rem: 0.5625rem;
   display: flex;
   &, &__list, &__correspondence {
     height: 100%;
@@ -33,4 +34,7 @@
   position: absolute;
   right: 8px;
   bottom: 8px;
+}
+.react_edu-chats-main__list__scroll {
+  overflow-y: scroll;
 }

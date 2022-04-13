@@ -1,4 +1,4 @@
-import React from "react";
+import React, {SyntheticEvent} from "react";
 import ButtonIcon from "./ButtonIcon";
 import './MenuButtonIcon.scss';
 
@@ -12,7 +12,7 @@ interface IMenuButtonIconProps {
     icon: any;
     size?: 's' | 'm' | 'l';
     color?: 'secondary' | 'action';
-    handleOnMenuClick?: Function;
+    handleOnMenuItemClick?: Function;
     items: IMenuButtonIconItem[];
 }
 
@@ -36,10 +36,9 @@ export default class MenuButtonIcon extends React.Component<IMenuButtonIconProps
             selected: false
         });
     }
-    handleOnClickMenuItem() {
-        console.log(arguments);
-        if (typeof this.props.handleOnMenuClick === 'function') {
-            this.props.handleOnMenuClick();
+    handleOnClickMenuItem(key: string, event: SyntheticEvent) {
+        if (typeof this.props.handleOnMenuItemClick === 'function') {
+            this.props.handleOnMenuItemClick(event, key);
         }
     }
     render() {
@@ -48,7 +47,7 @@ export default class MenuButtonIcon extends React.Component<IMenuButtonIconProps
             listContent.push(
                 <div className="chat-components-menu-button-icon__picker__item"
                      key={item.key}
-                     onClick={this.handleOnClickMenuItem.bind(this)}
+                     onClick={this.handleOnClickMenuItem.bind(this, item.key)}
                 >
                     {item.icon ?
                         <div className="chat-components-menu-button-icon__picker__item__icon">
