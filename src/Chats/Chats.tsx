@@ -99,10 +99,30 @@ export default class Chats extends React.Component {
             }
         });
     }
-    handleSaveChat() {
-        this.setState({
-            isEdit: false
-        });
+    handleSaveChat(event: SyntheticEvent, chat: IChats | null, isNew: boolean | null) {
+        if (chat) {
+            const chatsList = this.state.chatsList.slice();
+            if (isNew) {
+                chatsList.push(chat)
+            } else {
+                for (let i = 0; i < chatsList.length ; i++) {
+                    const currentChat = chatsList[i];
+                    if (currentChat.id === chat.id) {
+                        chatsList[i] = chat;
+                        break;
+                    }
+                }
+            }
+            this.setState({
+                chatsList: chatsList,
+                selectedChatId: chat.id,
+                isEdit: false
+            });
+        } else {
+            this.setState({
+                isEdit: false
+            });
+        }
     }
 
     render() {
@@ -129,6 +149,9 @@ export default class Chats extends React.Component {
                             ?
                             <div className="react_edu-chats-main__list__edit">
                                 <Edit onClickSave={this.handleSaveChat.bind(this)}
+                                      isGroup={this.state.edit?.isGroup}
+                                      isNew={this.state.edit?.isNew}
+                                      chat={this.state.edit?.chat}
                                 />
                             </div>
                             : ''

@@ -10,11 +10,28 @@ export default class Members extends React.Component<IMembersProps> {
     constructor(props: any) {
         super(props);
         this.state = {
-            checked: []
+            checked: props.checked
         };
     }
-    handleCheckedMembers() {
-        console.log(arguments);
+    handleCheckedMembers(key: string | null, checked: boolean) {
+        if (key) {
+            if (checked) {
+                if (this.props.checked.indexOf(key) == -1) {
+                    this.props.checked.push(key);
+                    this.setState({
+                        checked: this.props.checked
+                    });
+                }
+            } else {
+                const ind = this.props.checked.indexOf(key)
+                if (ind !== -1) {
+                    this.props.checked.splice(ind, 1);
+                    this.setState({
+                        checked: this.props.checked
+                    });
+                }
+            }
+        }
     }
     render() {
         const contactsContent: ReactElement[] = [];
@@ -26,7 +43,12 @@ export default class Members extends React.Component<IMembersProps> {
                     {this.props.canChecked ?
                         <input type="checkbox" name={item.id}
                                checked={this.props.checked.indexOf(item.id) !== -1}
-                               onChange={this.handleCheckedMembers.bind(this)}
+                               onChange={(e) => {
+                                   this.handleCheckedMembers(
+                                       e.currentTarget.getAttribute("name"),
+                                       e.target.checked
+                                   );
+                               }}
                         />
                         : ''
                     }
