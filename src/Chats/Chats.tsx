@@ -54,8 +54,8 @@ export default class Chats extends React.Component {
         };
     }
 
-    handlerClickToChat() {
-        // console.log(this);
+    handlerClickToChat(id: string) {
+        this.setState({selectedChatId: id});
     }
     handlerOnSend(event: SyntheticEvent, chatId: string, text: string) {
         const newCorrespondence = [...this.state.correspondence];
@@ -134,7 +134,9 @@ export default class Chats extends React.Component {
                 chatRow({
                     chat,
                     selected: this.state.selectedChatId === chat.id,
-                    onClick: this.handlerClickToChat.bind(this)
+                    onClick: () => {
+                        this.handlerClickToChat(chat.id);
+                    }
                 })
             );
         }

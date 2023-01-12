@@ -16,6 +16,7 @@ interface IEditProps {
 export default class Edit extends React.Component<IEditProps> {
     state: {
         name: string;
+        checkedMembers: string[];
     }
     static defaultProps = {
         isNew: true,
@@ -24,18 +25,20 @@ export default class Edit extends React.Component<IEditProps> {
     constructor(props: IEditProps) {
         super(props);
         this.state = {
-            name: ''
+            name: '',
+            checkedMembers: props.chat && props.chat.group && Array.isArray(props.chat.group)
+                ? props.chat.group : []
         };
     }
 
-    handleOnSave(event: SyntheticEvent, checkedMembers: string[]) {
+    handleOnSave(event: SyntheticEvent) {
         if (typeof this.props.onClickSave === 'function') {
             let chat = this.props.chat;
             if (this.props.isNew) {
                 chat = {
                     id: v4(),
                     name: this.state.name,
-                    group: checkedMembers
+                    group: this.state.checkedMembers
                 }
             }
             this.props.onClickSave(event, chat, this.props.isNew);
@@ -49,8 +52,6 @@ export default class Edit extends React.Component<IEditProps> {
     }
 
     render() {
-        const checkedMembers = this.props.chat && this.props.chat.group && Array.isArray(this.props.chat.group)
-            ? this.props.chat.group : [];
         return (
             <div className="react_edu-chats-edit">
                 {this.props.isGroup ?
@@ -71,7 +72,12 @@ export default class Edit extends React.Component<IEditProps> {
                 }
                 <div className="react_edu-chats-edit__middle">
                     <Members canChecked={this.props.isGroup}
-                             checked={checkedMembers}
+                             checked={this.state.checkedMembers}
+                             updateChecked={(checkedMembers: string[]) => {
+                                 this.setState({
+                                     checkedMembers: checkedMembers
+                                 });
+                             }}
                     />
                     {!this.props.isGroup ?
                         <div className="react_edu-chats-edit__middle__close">
@@ -87,7 +93,7 @@ export default class Edit extends React.Component<IEditProps> {
                     <ButtonIcon icon={<IoMdSave/>}
                                 color="action"
                                 handleOnClick={(e: SyntheticEvent)=>{
-                                    this.handleOnSave(e, checkedMembers)
+                                    this.handleOnSave(e)
                                 }}
                     />
                 </div>

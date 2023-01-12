@@ -4,31 +4,23 @@ import {contacts} from './Data';
 interface IMembersProps {
     canChecked: boolean;
     checked: string[];
+    updateChecked: Function;
 }
 
 export default class Members extends React.Component<IMembersProps> {
-    constructor(props: any) {
-        super(props);
-        this.state = {
-            checked: props.checked
-        };
-    }
     handleCheckedMembers(key: string | null, checked: boolean) {
         if (key) {
+            const checked_arr = this.props.checked.slice();
             if (checked) {
-                if (this.props.checked.indexOf(key) == -1) {
-                    this.props.checked.push(key);
-                    this.setState({
-                        checked: this.props.checked
-                    });
+                if (checked_arr.indexOf(key) == -1) {
+                    checked_arr.push(key);
+                    this.props.updateChecked(checked_arr);
                 }
             } else {
-                const ind = this.props.checked.indexOf(key)
+                const ind = checked_arr.indexOf(key)
                 if (ind !== -1) {
-                    this.props.checked.splice(ind, 1);
-                    this.setState({
-                        checked: this.props.checked
-                    });
+                    checked_arr.splice(ind, 1);
+                    this.props.updateChecked(checked_arr);
                 }
             }
         }
