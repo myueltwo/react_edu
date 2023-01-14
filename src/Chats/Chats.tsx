@@ -99,11 +99,23 @@ export default class Chats extends React.Component {
             }
         });
     }
-    handleSaveChat(event: SyntheticEvent, chat: IChats | null, isNew: boolean | null) {
+    handleSaveChat(event: SyntheticEvent | null, chat: IChats | null, isNew: boolean | null) {
         if (chat) {
             const chatsList = this.state.chatsList.slice();
             if (isNew) {
-                chatsList.push(chat)
+                if (!Array.isArray(chat.group)) {
+                    for (let i = 0; i < chatsList.length; i++) {
+                        const currentChat = chatsList[i];
+                        if (currentChat.group === chat.group) {
+                            this.setState({
+                                selectedChatId: currentChat.id,
+                                isEdit: false
+                            });
+                            return;
+                        }
+                    }
+                }
+                chatsList.push(chat);
             } else {
                 for (let i = 0; i < chatsList.length ; i++) {
                     const currentChat = chatsList[i];
