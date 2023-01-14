@@ -20,6 +20,9 @@ export default class SendMsg extends React.Component<ISendMsg> {
         };
     }
     handlerOnSend(event?: SyntheticEvent) {
+        if (!this.state.value) {
+            return;
+        }
         if (typeof this.props.onSendHandler === 'function') {
             this.props.onSendHandler(event, this.props.id, this.state.value);
         }
