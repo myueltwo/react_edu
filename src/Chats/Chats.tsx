@@ -137,6 +137,50 @@ export default class Chats extends React.Component {
         }
     }
 
+    handleEditChat() {
+        let selectedChat;
+        for (let i = 0; i < this.state.chatsList.length; i++) {
+            const currentChat = this.state.chatsList[i];
+            if (currentChat.id === this.state.selectedChatId) {
+                selectedChat = currentChat;
+                break;
+            }
+        }
+        if (selectedChat) {
+            this.setState({
+                isEdit: true,
+                edit: {
+                    isNew: false,
+                    isGroup: Array.isArray(selectedChat.group),
+                    chat: selectedChat
+                }
+            });
+        }
+    }
+
+    handleRemoveChat() {
+        const chatsList = this.state.chatsList.slice();
+        for (let i = 0; i < this.state.chatsList.length; i++) {
+            const currentChat = this.state.chatsList[i];
+            if (currentChat.id === this.state.selectedChatId) {
+                chatsList.splice(i, 1);
+                if (chatsList.length) {
+                    const newSelectedChatInd = i < chatsList.length ? i : i - 1;
+                    this.setState({
+                        chatsList,
+                        selectedChatId: chatsList[newSelectedChatInd].id
+                    });
+                } else {
+                    this.setState({
+                        chatsList,
+                        selectedChatId: null
+                    });
+                }
+                break;
+            }
+        }
+    }
+
     render() {
         const chatsList = [];
         const {selectedChat, selectedCorrespondence} = this.getParamsToCorrespondence();
@@ -189,6 +233,8 @@ export default class Chats extends React.Component {
                         <Correspondence chat={selectedChat}
                                         correspondence={selectedCorrespondence}
                                         onSendHandler={this.handlerOnSend.bind(this)}
+                                        onEditHandler={this.handleEditChat.bind(this)}
+                                        onRemoveHandler={this.handleRemoveChat.bind(this)}
                         />
                     </div>
                 </div>

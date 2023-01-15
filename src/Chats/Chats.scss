@@ -9,6 +9,7 @@
   display: flex;
   &, &__list, &__correspondence {
     height: 100%;
+    overflow: hidden;
   }
   ::-webkit-scrollbar {
     width: 4px;
@@ -26,6 +27,9 @@
   flex-basis: 40%;
   border-right: 1px solid #ccc;
   position: relative;
+  overflow: hidden;
+  flex-grow: 1;
+  flex-shrink: 0;
 }
 .react_edu-chats-main__correspondence {
   width: 100%;

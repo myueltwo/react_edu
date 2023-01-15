@@ -8,6 +8,8 @@ interface ICorrespondenceProps {
     chat: IChats;
     correspondence?: ICorrespondence;
     onSendHandler?: Function;
+    onEditHandler: Function;
+    onRemoveHandler: Function;
 }
 export default class Correspondence extends React.Component<ICorrespondenceProps> {
     render() {
@@ -21,6 +23,9 @@ export default class Correspondence extends React.Component<ICorrespondenceProps
                 <div className="react_edu-chats-correspondence__header">
                 <Header
                     chatName={this.props.chat.name}
+                    canEdit={Array.isArray(this.props.chat.group)}
+                    onEditHandler={this.props.onEditHandler}
+                    onRemoveHandler={this.props.onRemoveHandler}
                 />
                 </div>
                 {messagesContent}

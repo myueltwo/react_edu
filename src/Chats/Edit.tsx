@@ -23,14 +23,22 @@ export default class Edit extends React.Component<IEditProps> {
         isNew: true,
         isGroup: false
     }
+    private nameInput: React.RefObject<HTMLInputElement>;
 
     constructor(props: IEditProps) {
         super(props);
+        this.nameInput = React.createRef();
         this.state = {
-            name: '',
+            name: props.chat?.name || '',
             checkedMembers: props.chat && props.chat.group && Array.isArray(props.chat.group)
                 ? props.chat.group : ''
         };
+    }
+
+    componentDidMount(){
+        if (this.nameInput) {
+            this.nameInput.current?.focus();
+        }
     }
 
     componentDidUpdate(prevProps: IEditProps, prevState: IEditState) {
@@ -41,7 +49,7 @@ export default class Edit extends React.Component<IEditProps> {
 
     handleOnSave(event: SyntheticEvent | null) {
         if (typeof this.props.onClickSave === 'function') {
-            let chat = this.props.chat;
+            let chat = {...this.props.chat};
             if (this.props.isNew) {
                 let name = '';
                 if (this.props.isGroup) {
@@ -60,6 +68,9 @@ export default class Edit extends React.Component<IEditProps> {
                     name,
                     group: this.state.checkedMembers
                 }
+            } else {
+                chat.name = this.state.name;
+                chat.group = this.state.checkedMembers;
             }
             this.props.onClickSave(event, chat, this.props.isNew);
         }
@@ -76,12 +87,14 @@ export default class Edit extends React.Component<IEditProps> {
             <div className="react_edu-chats-edit">
                 {this.props.isGroup ?
                     <div className="react_edu-chats-edit__top">
-                        <input type="text" placeholder="Enter chat's name"
-                               className="react_edu-chats-edit__top__search"
-                               value={this.state.name}
-                               onChange={(e) => {
-                                   this.setState({name: e.target.value})
-                               }}
+                        <input
+                            ref={this.nameInput}
+                            type="text" placeholder="Enter chat's name"
+                            className="react_edu-chats-edit__top__search"
+                            value={this.state.name}
+                            onChange={(e) => {
+                                this.setState({name: e.target.value})
+                            }}
                         />
                         <ButtonIcon icon={<IoMdClose/>}
                                     size="s"

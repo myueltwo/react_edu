@@ -1,6 +1,19 @@
-.chat-correspondence {
+.react_edu-chats-header {
   height: 40px;
+  padding: var(--paddinig-rem);
+  display: flex;
 }
-.chat-correspondence__name {
+.react_edu-chats-header__name {
   font-weight: bold;
+  flex-grow: 1;
+  flex-shrink: 1;
+  line-height: 2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.react_edu-chats-header__tools {
+  display: flex;
+}
+.react_edu-chats-header__tools__edit {
+  padding-right: var(--paddinig-rem);
 }
