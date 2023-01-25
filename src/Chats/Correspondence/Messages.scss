@@ -9,3 +9,9 @@
 .react_edu-chats-messages:focus {
   visibility: visible;
 }
+.react_edu-chats-messages__empty {
+  color: var(--secondary-text-color);
+  text-align: center;
+  padding: var(--paddinig-rem);
+  font-size: var(--text-size-s)
+}

@@ -6,7 +6,11 @@
   --surface-color: white;
   --background-color-hover: #f4f4f5;
   --paddinig-rem: 0.5625rem;
+  --text-size: 16px;
+  --text-size-s: calc(var(--text-size) - 2px);
+  --text-size-xs: calc(var(--text-size) - 4px);
   display: flex;
+  font-size: var(--text-size);
   &, &__list, &__correspondence {
     height: 100%;
     overflow: hidden;

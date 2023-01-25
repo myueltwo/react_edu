@@ -20,7 +20,8 @@ export default class Messages extends React.Component<IMessagesProps> {
                 );
             }
         }
-        const messagesContent = messagesList.length ? messagesList : <div>Write first</div>;
+        const messagesContent = messagesList.length ? messagesList
+            : <div className="react_edu-chats-messages__empty">Write first</div>;
         return (
             <div className="react_edu-chats-messages">
                 <div className="react_edu-chats-messages__content">

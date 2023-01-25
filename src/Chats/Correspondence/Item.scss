@@ -1,3 +1,40 @@
+.react_edu-chats-messages-item {
+  display: flex;
+
+  --background-color-item: #f0f0f0;
+  --background-color-item-outgoing: #AFE1AF;
+  --paddinig-rem-content-bottom: calc(var(--paddinig-rem) * 3);
+}
+.react_edu-chats-messages-item__content {
+  position: relative;
+  margin: var(--paddinig-rem);
+  padding: var(--paddinig-rem);
+  padding-bottom: var(--paddinig-rem-content-bottom);
+  border-radius: 9px;
+}
+.react_edu-chats-messages-item-outgoing {
+  justify-content: flex-end;
+}
+.react_edu-chats-messages-item-inner {
+  justify-content: flex-start;
+}
+.react_edu-chats-messages-item__content-outgoing {
+  background: var(--background-color-item-outgoing);
+  max-width: 70%;
+}
+.react_edu-chats-messages-item__content-inner {
+  background: var(--background-color-item);
+  max-width: 100%;
+}
 .react_edu-chats-messages-item__text {
+  overflow: hidden;
+  overflow-wrap: break-word;
   white-space: pre-wrap;
+}
+.react_edu-chats-messages-item__date {
+  position: absolute;
+  right: var(--paddinig-rem);
+  bottom: var(--paddinig-rem);
+  font-size: var(--text-size-xs);
+  color: var(--secondary-text-color);
 }
