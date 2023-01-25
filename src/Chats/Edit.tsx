@@ -13,7 +13,6 @@ interface IEditProps {
     chat?: IChats;
 }
 interface IEditState {
-    name: string;
     checkedMembers: string | string[];
 }
 
@@ -29,7 +28,6 @@ export default class Edit extends React.Component<IEditProps> {
         super(props);
         this.nameInput = React.createRef();
         this.state = {
-            name: props.chat?.name || '',
             checkedMembers: props.chat && props.chat.group && Array.isArray(props.chat.group)
                 ? props.chat.group : ''
         };
@@ -53,7 +51,7 @@ export default class Edit extends React.Component<IEditProps> {
             if (this.props.isNew) {
                 let name = '';
                 if (this.props.isGroup) {
-                    name = this.state.name;
+                    name = this.nameInput.current?.value || '';
                 } else {
                     for (let i = 0; i < contacts.length; i++) {
                         const contact = contacts[i];
@@ -69,7 +67,7 @@ export default class Edit extends React.Component<IEditProps> {
                     group: this.state.checkedMembers
                 }
             } else {
-                chat.name = this.state.name;
+                chat.name = this.nameInput.current?.value || '';
                 chat.group = this.state.checkedMembers;
             }
             this.props.onClickSave(event, chat, this.props.isNew);
@@ -91,10 +89,7 @@ export default class Edit extends React.Component<IEditProps> {
                             ref={this.nameInput}
                             type="text" placeholder="Enter chat's name"
                             className="react_edu-chats-edit__top__search"
-                            value={this.state.name}
-                            onChange={(e) => {
-                                this.setState({name: e.target.value})
-                            }}
+                            defaultValue={this.props.chat?.name || ''}
                         />
                         <ButtonIcon icon={<IoMdClose/>}
                                     size="s"
@@ -126,9 +121,7 @@ export default class Edit extends React.Component<IEditProps> {
                 <div className="react_edu-chats-edit__bottom">
                     <ButtonIcon icon={<IoMdSave/>}
                                 color="action"
-                                handleOnClick={(e: SyntheticEvent) => {
-                                    this.handleOnSave(e)
-                                }}
+                                handleOnClick={this.handleOnSave.bind(this)}
                     />
                 </div>
             </div>
