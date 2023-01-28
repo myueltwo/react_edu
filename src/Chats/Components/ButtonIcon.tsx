@@ -22,11 +22,12 @@ export default class ButtonIcon extends React.Component<IButtonIconProps> {
     }
     render() {
         return (
-            <div className={"chat-components-button-icon chat-components-button-icon-size-" + this.props.size +
+            <button className={"chat-components-button-icon chat-components-button-icon-size-" + this.props.size +
                 " chat-components-button-icon-color-" + this.props.color}
+                type="submit"
                 onClick={this.handleOnClick.bind(this)}>
                 {this.props.icon}
-            </div>
+            </button>
         );
     }
 }

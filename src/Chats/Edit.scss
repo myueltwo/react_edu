@@ -13,9 +13,10 @@
 .react_edu-chats-edit__top {
   display: flex;
 }
-.react_edu-chats-edit__top__search {
+.react_edu-chats-edit__name {
   flex-grow: 1;
   flex-shrink: 1;
+  margin-right: var(--paddinig-rem);
 }
 .react_edu-chats-edit__middle {
   flex-shrink: 1;

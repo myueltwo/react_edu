@@ -1,4 +1,4 @@
-import React, {SyntheticEvent} from "react";
+import React, {SyntheticEvent, FocusEvent} from "react";
 import ButtonIcon from "./ButtonIcon";
 import './MenuButtonIcon.scss';
 
@@ -25,16 +25,23 @@ export default class MenuButtonIcon extends React.Component<IMenuButtonIconProps
         this.state = {
             selected: false
         };
+        this.handleOnBlur = this.handleOnBlur.bind(this);
+        this.handleOnMouseLeave = this.handleOnMouseLeave.bind(this);
     }
     handleOnClick() {
         this.setState({
             selected: true
         });
     }
-    handleOnBlur() {
+    handleOnMouseLeave() {
         this.setState({
             selected: false
         });
+    }
+    handleOnBlur(event: FocusEvent) {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+            this.handleOnMouseLeave();
+        }
     }
     handleOnClickMenuItem(key: string, event: SyntheticEvent) {
         if (typeof this.props.handleOnMenuItemClick === 'function') {
@@ -62,7 +69,7 @@ export default class MenuButtonIcon extends React.Component<IMenuButtonIconProps
             <div className={'chat-components-menu-button-icon' + (this.state.selected
                 ? ' chat-components-menu-button-icon-selected' : '')  }
                  tabIndex={1}
-                 onBlur={this.handleOnBlur.bind(this)}
+                 onBlur={this.handleOnBlur}
             >
                 <ButtonIcon icon={this.props.icon}
                             size={this.props.size}
@@ -70,7 +77,7 @@ export default class MenuButtonIcon extends React.Component<IMenuButtonIconProps
                             handleOnClick={this.handleOnClick.bind(this)}
                 />
                 <div className="chat-components-menu-button-icon__picker"
-                     onMouseLeave={this.handleOnBlur.bind(this)}>
+                     onMouseLeave={this.handleOnMouseLeave}>
                     {listContent}
                 </div>
             </div>

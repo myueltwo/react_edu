@@ -12,6 +12,7 @@ interface IEditProps {
     isGroup: boolean;
     chat?: IChats;
 }
+
 interface IEditState {
     checkedMembers: string | string[];
 }
@@ -33,7 +34,7 @@ export default class Edit extends React.Component<IEditProps> {
         };
     }
 
-    componentDidMount(){
+    componentDidMount() {
         if (this.nameInput) {
             this.nameInput.current?.focus();
         }
@@ -82,21 +83,21 @@ export default class Edit extends React.Component<IEditProps> {
 
     render() {
         return (
-            <div className="react_edu-chats-edit">
-                {this.props.isGroup ?
+            <form className="react_edu-chats-edit" onSubmit={this.handleOnSave.bind(this)}>
+                {this.props.isGroup &&
                     <div className="react_edu-chats-edit__top">
                         <input
                             ref={this.nameInput}
                             type="text" placeholder="Enter chat's name"
-                            className="react_edu-chats-edit__top__search"
+                            className="react_edu-chats-edit__name"
                             defaultValue={this.props.chat?.name || ''}
+                            required={true}
                         />
                         <ButtonIcon icon={<IoMdClose/>}
                                     size="s"
                                     handleOnClick={this.handleOnClose.bind(this)}
                         />
                     </div>
-                    : ''
                 }
                 <div className="react_edu-chats-edit__middle">
                     <Members canChecked={this.props.isGroup}
@@ -108,23 +109,21 @@ export default class Edit extends React.Component<IEditProps> {
                                  });
                              }}
                     />
-                    {!this.props.isGroup ?
+                    {!this.props.isGroup &&
                         <div className="react_edu-chats-edit__middle__close">
                             <ButtonIcon icon={<IoMdClose/>}
                                         size="s"
                                         handleOnClick={this.handleOnClose.bind(this)}
                             />
                         </div>
-                        : ""
                     }
                 </div>
                 <div className="react_edu-chats-edit__bottom">
                     <ButtonIcon icon={<IoMdSave/>}
                                 color="action"
-                                handleOnClick={this.handleOnSave.bind(this)}
                     />
                 </div>
-            </div>
+            </form>
         );
     }
 }
