@@ -1,0 +1,18 @@
+.react_edu-chats-members__item {
+  cursor: pointer;
+  padding: var(--paddinig-rem);
+
+  &:hover {
+    background-color: var(--background-color-hover);
+  }
+}
+
+.react_edu-chats-members__item-checkbox {
+  display: flex;
+}
+
+.react_edu-chats-members__item__label {
+  display: block;
+  width: 100%;
+  cursor: pointer;
+}

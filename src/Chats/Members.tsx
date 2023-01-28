@@ -1,5 +1,6 @@
 import React, {ReactElement, SyntheticEvent} from "react";
-import {contacts} from './Data';
+import {contacts, IUser} from './Data';
+import './Members.scss';
 
 interface IMembersProps {
     canChecked: boolean;
@@ -7,61 +8,76 @@ interface IMembersProps {
     updateChecked: Function;
 }
 
-export default class Members extends React.Component<IMembersProps> {
-    handleCheckedMembers(e: SyntheticEvent, key: string | null, checked: boolean) {
+interface IRowMemberProps extends IMembersProps {
+    item: IUser;
+    handleCheckedMembers: Function;
+}
+
+function Row(props: IRowMemberProps) {
+    return (
+        <div className="react_edu-chats-members__item"
+             key={props.item.id}
+        >
+            {props.canChecked ?
+                <div className="react_edu-chats-members__item-checkbox">
+                    <input type="checkbox" id={props.item.id}
+                           checked={props.checked.includes(props.item.id)}
+                           onChange={(e) => {
+                               props.handleCheckedMembers(
+                                   e,
+                                   e.currentTarget.id,
+                                   e.target.checked
+                               );
+                           }}
+                    />
+                    <label htmlFor={props.item.id}
+                           className="react_edu-chats-members__item__label"
+                    >
+                        {props.item.name}</label>
+                </div>
+                :
+                <div key={props.item.id}
+                     onClick={(e) => {
+                         props.updateChecked(e, props.item.id);
+                     }}>
+                    {props.item.name}
+                </div>
+            }
+        </div>
+    );
+}
+
+export default function Members(props: IMembersProps) {
+    function handleCheckedMembers(e: SyntheticEvent, key: string | null,
+                                  checked: boolean
+    ) {
         if (key) {
-            const checked_arr = this.props.checked.slice();
+            const checked_arr = props.checked.slice();
             if (checked) {
                 if (checked_arr.indexOf(key) == -1) {
                     checked_arr.push(key);
-                    this.props.updateChecked(e, checked_arr);
+                    props.updateChecked(e, checked_arr);
                 }
             } else {
                 const ind = checked_arr.indexOf(key)
                 if (ind !== -1) {
                     checked_arr.splice(ind, 1);
-                    this.props.updateChecked(e, checked_arr);
+                    props.updateChecked(e, checked_arr);
                 }
             }
         }
     }
 
-    render() {
-        const contactsContent: ReactElement[] = [];
-        contacts.forEach(item => {
-            contactsContent.push(
-                <div className="react_edu-chats-members__item"
-                     key={item.id}
-                >
-                    {this.props.canChecked ?
-                        <div>
-                            <input type="checkbox" name={item.id}
-                                   checked={this.props.checked.indexOf(item.id) !== -1}
-                                   onChange={(e) => {
-                                       this.handleCheckedMembers(
-                                           e,
-                                           e.currentTarget.getAttribute("name"),
-                                           e.target.checked
-                                       );
-                                   }}
-                            />
-                            <label htmlFor={item.id}>{item.name}</label>
-                        </div>
-                        :
-                        <div key={item.id}
-                             onClick={(e) => {
-                                 this.props.updateChecked(e, item.id);
-                             }}>
-                            {item.name}
-                        </div>
-                    }
-                </div>
-            );
-        });
-        return (
-            <div className="react_edu-chats-members">
-                {contactsContent}
-            </div>
+    const contactsContent: ReactElement[] = [];
+    contacts.forEach(item => {
+        contactsContent.push(
+            <Row item={item} handleCheckedMembers={handleCheckedMembers} {...props}/>
         );
-    }
+    });
+
+    return (
+        <div className="react_edu-chats-members">
+            {contactsContent}
+        </div>
+    )
 }
