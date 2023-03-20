@@ -71,7 +71,11 @@ export default function Members(props: IMembersProps) {
     const contactsContent: ReactElement[] = [];
     contacts.forEach(item => {
         contactsContent.push(
-            <Row item={item} handleCheckedMembers={handleCheckedMembers} {...props}/>
+            <Row key={`member-${item.id}`}
+                 item={item}
+                 handleCheckedMembers={handleCheckedMembers}
+                 {...props}
+            />
         );
     });
 

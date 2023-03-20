@@ -4,10 +4,9 @@ import {chats, correspondence as correspondenceData, IChats, ICorrespondence, my
 import chatRow from "./Row";
 import Correspondence from "./Correspondence/Correspondence";
 import {v4} from 'uuid';
-import { BiMessageAdd } from 'react-icons/bi';
-import {AiOutlineUsergroupAdd, AiOutlineUserAdd} from 'react-icons/ai';
-import MenuButtonIcon from "./Components/MenuButtonIcon";
 import Edit from "./Edit";
+import {Add} from "./Add";
+import {Empty} from "./Empty";
 
 interface IChatsState {
     chatsList: IChats[];
@@ -215,18 +214,7 @@ export default class Chats extends React.Component {
                             : ''
                         }
                         <div className="react_edu-chats-main__list__add-btn">
-                            <MenuButtonIcon icon={<BiMessageAdd/>}
-                                            items={[{
-                                                key: 'createGroup',
-                                                name: 'New Group',
-                                                icon: <AiOutlineUsergroupAdd/>
-                                            }, {
-                                                key: 'createPrivateChat',
-                                                name: 'New Private Chat',
-                                                icon: <AiOutlineUserAdd/>
-                                            }]}
-                                            handleOnMenuItemClick={this.handleOnMenuItemClick.bind(this)}
-                            />
+                            <Add handleOnMenuItemClick={this.handleOnMenuItemClick.bind(this)}/>
                         </div>
                     </div>
                     <div className="react_edu-chats-main__correspondence">
@@ -241,7 +229,9 @@ export default class Chats extends React.Component {
             );
         } else {
             return (
-                <div>Пустой экран</div>
+                <div className="react_edu-chats-main">
+                    <Empty handleSaveChat={this.handleSaveChat.bind(this)}/>
+                </div>
             );
         }
     }

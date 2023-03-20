@@ -11,6 +11,7 @@
   padding: var(--paddinig-rem);
   padding-bottom: var(--paddinig-rem-content-bottom);
   border-radius: 9px;
+  min-width: 10%;
 }
 .react_edu-chats-messages-item-outgoing {
   justify-content: flex-end;
