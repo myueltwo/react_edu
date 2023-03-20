@@ -46,12 +46,12 @@ export default class Switcher extends React.Component {
             default:
                 status = <ul className="react_edu-switcher-main__list">
                     <li>
-                        <a href="#" onClick={this.handleClickGame}>Игра
-                            "Крестики-нолики"
+                        <a href="#" onClick={this.handleClickGame}>Game
+                            "Noughts and crosses"
                         </a>
                     </li>
                     <li>
-                        <a href="#" onClick={this.handleClickChats}>"Чаты"</a>
+                        <a href="#" onClick={this.handleClickChats}>"Chats"</a>
                     </li>
                 </ul>;
         }
